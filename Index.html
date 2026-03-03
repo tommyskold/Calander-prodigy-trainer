@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendar Prodigy Trainer</title>
+<style>
+body {
+    margin:0;
+    font-family:-apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(135deg,#0f0f0f,#1c1c1c);
+    color:white;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+h1 {
+    font-weight:300;
+    letter-spacing:2px;
+}
+#date {
+    font-size:32px;
+    margin:30px;
+}
+button {
+    background:#ffffff10;
+    color:white;
+    border:1px solid #ffffff30;
+    padding:15px 25px;
+    margin:10px;
+    border-radius:12px;
+    font-size:18px;
+    backdrop-filter: blur(5px);
+}
+button:active {
+    background:#ffffff30;
+}
+#answer, #difference {
+    margin-top:20px;
+    font-size:22px;
+}
+.footer {
+    position:absolute;
+    bottom:15px;
+    font-size:12px;
+    opacity:0.4;
+}
+</style>
+</head>
+<body>
+
+<h1>CALENDAR PRODIGY</h1>
+
+<div id="date">Press "Generate Date"</div>
+
+<button onclick="generateDate()">Generate Date</button>
+<button onclick="showDay()">Reveal Weekday</button>
+<button onclick="showDifference()">Days From Today</button>
+
+<div id="answer"></div>
+<div id="difference"></div>
+
+<div class="footer">Training Range: 1900–2100</div>
+
+<script>
+let currentDate;
+
+function generateDate() {
+    let start = new Date(1900, 0, 1);
+    let end = new Date(2100, 11, 31);
+    let random = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+    currentDate = random;
+
+    document.getElementById("date").innerText =
+        random.getFullYear() + ", " +
+        (random.getMonth() + 1) + ", " +
+        random.getDate();
+
+    document.getElementById("answer").innerText = "";
+    document.getElementById("difference").innerText = "";
+}
+
+function showDay() {
+    if (!currentDate) return;
+    let days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    document.getElementById("answer").innerText = days[currentDate.getDay()];
+}
+
+function showDifference() {
+    if (!currentDate) return;
+    let today = new Date();
+    let diff = Math.floor((today - currentDate) / (1000*60*60*24));
+    document.getElementById("difference").innerText =
+        Math.abs(diff) + " days";
+}
+</script>
+
+</body>
+</html>
